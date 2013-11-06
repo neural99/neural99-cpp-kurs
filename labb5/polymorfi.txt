@@ -1,0 +1,38 @@
+YatzyRules har en vector med pekare till YatzyRowRule.  I den placeras
+instanser av subklasser till YatzyRowRule, t.e.x. OnesToSixes, Equal,
+TwoPair, Straight, etc.
+
+YatzyRowRule har en metod med namnet calculateResult som returnerar
+poängen eller -1 om det ej går att placera tärningarna på en platsen.
+
+I huvudklassen YatzyRowRule är funktionen en rent virtuell funktion
+och fungerar enbart som platshållare.
+
+Subklasserna till YatzyRowRule överlagrar funktionen calculateResult och
+implementerar funktionalitet för sina respektive yatsy-regler. T.e.x.
+OnesToSixes calculateResult beräknar poängen för Ettor, Tvåor, ..,
+Sexor.  Denna klass använder även en instansvariabel för att tala om
+vilken av dessa platser just detta objekt implementerar.
+
+Equals calculateResult beräknar på liknande sätt resultatet för Par,
+Triss, Fyrtal och Yatsy.
+
+Eftersom calculateResult är en virtuell funktion anropas respektive
+implementation i subklasserna istället för funktionen i YatzyRowRule,
+även om pekaren är av typen YatzyRowRule. Detta är polymorfi.
+
+Polymorif används i detta fall som ersättning för en lång följd
+if-satser
+    > if (isOnesToSixes()) { 
+    >       return calcOnesToSixes(); 
+    > } else if (isEqual(2)) { 
+    >       return calcEqual(2);   
+    ...
+    > } else { 
+    >       return -1; 
+    > }
+Fördelen med detta angrippsätt är att koden blir mer modulär och
+således enklare att underhålla. Det blir också enklare att fördela
+jobbet till flera olika programmerare.  Det är enkelt att göra en
+subklass till YatzyRowRule och implementera sin egen regel utan att
+behöva ändra i flera gemensamma funktioner.
